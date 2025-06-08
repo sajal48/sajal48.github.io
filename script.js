@@ -1,23 +1,37 @@
-// Typing animation for hero section
+// Typing animation for hero section with output responses
 class TypeWriter {
-    constructor(element, words, wait = 3000) {
+    constructor(element, commands, outputElement, wait = 3000) {
         this.element = element;
-        this.words = words;
+        this.commands = commands;
+        this.outputElement = outputElement;
         this.wait = parseInt(wait, 10);
-        this.wordIndex = 0;
+        this.commandIndex = 0;
         this.txt = '';
         this.isDeleting = false;
+        this.showingOutput = false;
         this.type();
     }
 
     type() {
-        const current = this.wordIndex % this.words.length;
-        const fullTxt = this.words[current];
+        const current = this.commandIndex % this.commands.length;
+        const command = this.commands[current].command;
+        const output = this.commands[current].output;
+        
+        // If we're showing output, handle that differently
+        if (this.showingOutput) {
+            // Display output for some time, then start deleting the command
+            setTimeout(() => {
+                this.showingOutput = false;
+                this.isDeleting = true;
+                this.type();
+            }, this.wait);
+            return;
+        }
 
         if (this.isDeleting) {
-            this.txt = fullTxt.substring(0, this.txt.length - 1);
+            this.txt = command.substring(0, this.txt.length - 1);
         } else {
-            this.txt = fullTxt.substring(0, this.txt.length + 1);
+            this.txt = command.substring(0, this.txt.length + 1);
         }
 
         this.element.innerHTML = this.txt;
@@ -28,33 +42,79 @@ class TypeWriter {
             typeSpeed /= 2;
         }
 
-        if (!this.isDeleting && this.txt === fullTxt) {
-            typeSpeed = this.wait;
-            this.isDeleting = true;
-        } else if (this.isDeleting && this.txt === '') {
+        // When finished typing the command
+        if (!this.isDeleting && this.txt === command) {
+            // Show the related output
+            this.outputElement.innerHTML = output;
+            this.showingOutput = true;
+            return this.type(); // Continue the flow but in output mode
+        } 
+        // When finished deleting the command
+        else if (this.isDeleting && this.txt === '') {
             this.isDeleting = false;
-            this.wordIndex++;
+            this.commandIndex++;
             typeSpeed = 500;
+            
+            // Clear the output
+            this.outputElement.innerHTML = '';
         }
 
         setTimeout(() => this.type(), typeSpeed);
     }
 }
 
-// Initialize typing animation
+// Initialize typing animation with commands and outputs
 document.addEventListener('DOMContentLoaded', function() {
     const typedTextElement = document.querySelector('.typed-text');
-    const words = [
-        'whoami',
-        'cat skills.txt',
-        'ls projects/',
-        'git log --oneline',
-        'docker ps',
-        'kubectl get pods'
+    const outputElement = document.querySelector('.terminal-output');
+    
+    // Commands and their corresponding outputs
+    const commandsWithOutputs = [
+        {
+            command: 'whoami',
+            output: `<div class="output-line">Sajal Halder</div>
+                    <div class="output-line">Software Engineer @ BJIT</div>
+                    <div class="output-line">Backend Developer</div>`
+        },
+        {
+            command: 'cat skills.txt',
+            output: `<div class="output-line">• Java, Kotlin, Spring Boot</div>
+                    <div class="output-line">• Microservices Architecture</div>
+                    <div class="output-line">• PostgreSQL, Redis, Cassandra</div>
+                    <div class="output-line">• Docker, Kubernetes, CI/CD</div>`
+        },
+        {
+            command: 'ls projects/',
+            output: `<div class="output-line">rakuten-bff/</div>
+                    <div class="output-line">rakuten-gateway/</div>
+                    <div class="output-line">erp-system/</div>
+                    <div class="output-line">microservices-platform/</div>`
+        },
+        {
+            command: 'git log --oneline',
+            output: `<div class="output-line">e7d9f2c Optimized service latency by 28%</div>
+                    <div class="output-line">a4b8c3d Improved CI pipeline reliability</div>
+                    <div class="output-line">f5c1e7b Built ERP system for 150+ users</div>
+                    <div class="output-line">b3d8a1c Handled 1B+ daily API transactions</div>`
+        },
+        {
+            command: 'docker ps',
+            output: `<div class="output-line">CONTAINER ID   IMAGE              STATUS</div>
+                    <div class="output-line">a89f3cde21     spring-boot-app     Up 3 days</div>
+                    <div class="output-line">b45e1cfa38     postgres:14         Up 3 days</div>
+                    <div class="output-line">c12d7e93ab     redis:alpine        Up 3 days</div>`
+        },
+        {
+            command: 'kubectl get pods',
+            output: `<div class="output-line">NAME                           READY   STATUS</div>
+                    <div class="output-line">api-gateway-694d87b989-zsd45    1/1     Running</div>
+                    <div class="output-line">auth-service-5bc7cbd5d6-x2wvp   1/1     Running</div>
+                    <div class="output-line">user-service-84b87c6d55-lp24f   1/1     Running</div>`
+        }
     ];
     
-    if (typedTextElement) {
-        new TypeWriter(typedTextElement, words, 2000);
+    if (typedTextElement && outputElement) {
+        new TypeWriter(typedTextElement, commandsWithOutputs, outputElement, 2000);
     }
 });
 
