@@ -209,6 +209,42 @@ function animateCounter(element) {
     }, stepTime);
 }
 
+// Terminal screen flicker effect
+function addScreenEffects() {
+    // Create flicker overlay
+    const flickerOverlay = document.createElement('div');
+    flickerOverlay.className = 'flicker-overlay';
+    document.body.appendChild(flickerOverlay);
+    
+    // Random screen flickers
+    function randomFlicker() {
+        if (Math.random() < 0.02) { // 2% chance of flicker
+            flickerOverlay.style.opacity = (Math.random() * 0.05) + 0.02;
+            
+            setTimeout(() => {
+                flickerOverlay.style.opacity = '0';
+            }, 50 + Math.random() * 50);
+        }
+        
+        // Occasional stronger flicker
+        if (Math.random() < 0.002) { // 0.2% chance of stronger glitch
+            flickerOverlay.style.opacity = (Math.random() * 0.15) + 0.05;
+            
+            // Brief distortion
+            document.body.classList.add('distort');
+            
+            setTimeout(() => {
+                flickerOverlay.style.opacity = '0';
+                document.body.classList.remove('distort');
+            }, 100 + Math.random() * 150);
+        }
+        
+        requestAnimationFrame(randomFlicker);
+    }
+    
+    randomFlicker();
+}
+
 // Initialize on DOM loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize terminal
@@ -358,4 +394,6 @@ document.addEventListener('DOMContentLoaded', () => {
 ║                                        ║
 ╚════════════════════════════════════════╝
 `);
+    
+    addScreenEffects();
 });
