@@ -88,16 +88,21 @@ const observer = new IntersectionObserver((entries) => {
                 animateCounter(entry.target);
             }
             
-            // Animate skill bars
-            if (entry.target.classList.contains('skill-item')) {
-                animateSkillBar(entry.target);
+            // Animate skill bars within skill categories
+            if (entry.target.classList.contains('skill-category')) {
+                const skillBars = entry.target.querySelectorAll('.skill-progress');
+                skillBars.forEach((bar, index) => {
+                    setTimeout(() => {
+                        animateSkillBar(bar);
+                    }, index * 100);
+                });
             }
         }
     });
 }, observerOptions);
 
 // Observe elements for animation
-document.querySelectorAll('.stat-number, .skill-item, .project-card').forEach(el => {
+document.querySelectorAll('.stat-number, .skill-category, .project-card').forEach(el => {
     observer.observe(el);
 });
 
@@ -129,10 +134,13 @@ function animateCounter(element) {
 }
 
 // Skill bar animation
-function animateSkillBar(element) {
-    const skillLevel = element.querySelector('.skill-level').textContent;
-    const percentage = parseInt(skillLevel);
-    element.style.setProperty('--skill-width', percentage + '%');
+function animateSkillBar(progressBar) {
+    if (progressBar) {
+        const percentage = progressBar.getAttribute('data-skill');
+        setTimeout(() => {
+            progressBar.style.width = percentage + '%';
+        }, 200);
+    }
 }
 
 // Parallax effect for grain overlay
