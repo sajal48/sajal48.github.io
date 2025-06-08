@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Chen - Backend Developer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="grain-overlay"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">~/alex-chen</div>
+            <div class="nav-links">
+                <a href="#about" class="nav-link">about</a>
+                <a href="#projects" class="nav-link">projects</a>
+                <a href="#skills" class="nav-link">skills</a>
+                <a href="#contact" class="nav-link">contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="control close"></span>
+                        <span class="control minimize"></span>
+                        <span class="control maximize"></span>
+                    </div>
+                    <div class="terminal-title">alex@localhost:~$</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="terminal-line">
+                        <span class="prompt">$</span>
+                        <span class="command typed-text"></span>
+                        <span class="cursor">|</span>
+                    </div>
+                    <div class="output-lines">
+                        <div class="output-line">Backend Software Developer</div>
+                        <div class="output-line">Building scalable systems with passion</div>
+                        <div class="output-line ascii-art">
+<pre>
+    ╭─────────────────────────╮
+    │  API  │  DB  │  Cloud  │
+    ╰─────────────────────────╯
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="comment"># About Me</span>
+                </h2>
+                <div class="content-grid">
+                    <div class="code-block">
+                        <div class="code-header">about.json</div>
+                        <pre class="code-content">
+{
+  "name": "Alex Chen",
+  "role": "Backend Software Developer",
+  "experience": "4+ years",
+  "location": "San Francisco, CA",
+  "passion": [
+    "Distributed Systems",
+    "API Design", 
+    "Database Optimization",
+    "Cloud Architecture"
+  ],
+  "philosophy": "Clean code is not written by following a set of rules. Clean code is written by someone who cares."
+}
+                        </pre>
+                    </div>
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="50">0</div>
+                            <div class="stat-label">APIs Built</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="1000000">0</div>
+                            <div class="stat-label">Requests Handled</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="99.9">0</div>
+                            <div class="stat-label">% Uptime</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="comment"># Featured Projects</span>
+                </h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Microservices Platform</h3>
+                            <div class="project-status">
+                                <span class="status-dot active"></span>
+                                <span>Production</span>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Scalable microservices architecture handling 1M+ daily requests with Docker, Kubernetes, and gRPC.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Go</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Kubernetes</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <span>view code</span>
+                                <span class="arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Real-time Analytics API</h3>
+                            <div class="project-status">
+                                <span class="status-dot active"></span>
+                                <span>Live</span>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            High-performance analytics API with real-time data processing and WebSocket connections.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">WebSocket</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <span>view demo</span>
+                                <span class="arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3>Cloud Infrastructure</h3>
+                            <div class="project-status">
+                                <span class="status-dot"></span>
+                                <span>Archived</span>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Automated cloud infrastructure deployment with Terraform and CI/CD pipelines.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">AWS</span>
+                            <span class="tech-tag">Terraform</span>
+                            <span class="tech-tag">GitHub Actions</span>
+                            <span class="tech-tag">Python</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">
+                                <span>documentation</span>
+                                <span class="arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="comment"># Technical Skills</span>
+                </h2>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>Languages</h3>
+                        <div class="skill-list">
+                            <div class="skill-item">Go <span class="skill-level">95%</span></div>
+                            <div class="skill-item">Python <span class="skill-level">90%</span></div>
+                            <div class="skill-item">JavaScript <span class="skill-level">85%</span></div>
+                            <div class="skill-item">SQL <span class="skill-level">88%</span></div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Databases</h3>
+                        <div class="skill-list">
+                            <div class="skill-item">PostgreSQL <span class="skill-level">92%</span></div>
+                            <div class="skill-item">MongoDB <span class="skill-level">85%</span></div>
+                            <div class="skill-item">Redis <span class="skill-level">88%</span></div>
+                            <div class="skill-item">Elasticsearch <span class="skill-level">80%</span></div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Cloud & DevOps</h3>
+                        <div class="skill-list">
+                            <div class="skill-item">AWS <span class="skill-level">90%</span></div>
+                            <div class="skill-item">Docker <span class="skill-level">95%</span></div>
+                            <div class="skill-item">Kubernetes <span class="skill-level">85%</span></div>
+                            <div class="skill-item">Terraform <span class="skill-level">82%</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="comment"># Get In Touch</span>
+                </h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <p>Let's build something amazing together. I'm always open to discussing new opportunities and interesting projects.</p>
+                        <div class="contact-methods">
+                            <a href="mailto:alex@example.com" class="contact-method">
+                                <span class="method-icon">@</span>
+                                <span>alex@example.com</span>
+                            </a>
+                            <a href="https://github.com" class="contact-method">
+                                <span class="method-icon">&lt;/&gt;</span>
+                                <span>github.com/alexchen</span>
+                            </a>
+                            <a href="https://linkedin.com" class="contact-method">
+                                <span class="method-icon">in</span>
+                                <span>linkedin.com/in/alexchen</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="terminal-contact">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control close"></span>
+                                <span class="control minimize"></span>
+                                <span class="control maximize"></span>
+                            </div>
+                            <div class="terminal-title">contact.sh</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="prompt">$</span>
+                                <span class="command">./send_message.sh</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="output">Message sent successfully!</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="output">Response time: &lt; 24h</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="prompt">$</span>
+                                <span class="cursor">|</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Alex Chen. Built with ❤️ and lots of ☕</p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Privacy</a>
+                    <a href="#" class="footer-link">Terms</a>
+                    <a href="#" class="footer-link">RSS</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
