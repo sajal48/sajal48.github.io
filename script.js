@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
             output: `<div class="output-line">rakuten-bff/</div>
                     <div class="output-line">rakuten-gateway/</div>
                     <div class="output-line">erp-system/</div>
-                    <div class="output-line">microservices-platform/</div>`
+                    <div class="output-line">querydsl-api/</div>
+                    <div class="output-line">url-shortener/</div>`
         },
         {
             command: 'git log --oneline',
