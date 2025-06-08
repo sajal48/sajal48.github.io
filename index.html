@@ -2,56 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Sajal Halder - Software Engineer</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sajal Halder | Backend Engineer</title>    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Sajal Halder - Backend Software Engineer specializing in Java, Spring Boot, and Microservices">
 </head>
 <body>
-    <div class="grain-overlay"></div>
+    <!-- CRT screen effects -->
+    <div class="noise-overlay"></div>
     
+    <!-- Navigation Bar -->
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">~/sajal-halder</div>            <div class="nav-links">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-prefix">~/</span><span class="logo-text">sajal-halder</span><span class="logo-cursor">█</span>
+            </div>
+            <div class="nav-links">
                 <a href="#about" class="nav-link">about</a>
                 <a href="#skills" class="nav-link">skills</a>
                 <a href="#experience" class="nav-link">experience</a>
                 <a href="#projects" class="nav-link">projects</a>
                 <a href="#contact" class="nav-link">contact</a>
             </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 
     <main>
+        <!-- Hero Section with Terminal -->
+         
         <section class="hero">
-            <div class="terminal-window">
-                <div class="terminal-header">
-                    <div class="terminal-controls">
-                        <span class="control close"></span>
-                        <span class="control minimize"></span>
-                        <span class="control maximize"></span>
+            <div class="container">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="terminal-button close"></span>
+                            <span class="terminal-button minimize"></span>
+                            <span class="terminal-button maximize"></span>
+                        </div>
+                        <div class="terminal-title">sajal@backend:~$</div>
                     </div>
-                    <div class="terminal-title">sajal@localhost:~$</div>
-                </div>
-                <div class="terminal-body">
-                    <div class="terminal-line">
-                        <span class="prompt">$</span>
-                        <span class="command typed-text"></span>
-                        <span class="cursor">|</span>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">$</span> <span class="command-input"></span><span class="cursor"></span>
+                        </div>
+                        <div class="terminal-output"></div>
                     </div>
-                    <div class="terminal-output"></div>
                 </div>
+                
             </div>
         </section>
 
+        <!-- About Section -->
         <section id="about" class="section">
             <div class="container">
                 <h2 class="section-title">
-                    <span class="comment"># About Me</span>
+                    <span class="hash"></span> About Me
                 </h2>
-                <div class="content-grid">
-                    <div class="code-block">
-                        <div class="code-header">about.json</div>                        <pre class="code-content">
-{
+                <div class="about-content">
+                    <div class="about-code">
+                        <div class="code-header">
+                            <span class="file-name">about.json</span>
+                            <div class="code-actions">
+                                <span class="code-action copy" title="Copy code"></span>
+                            </div>
+                        </div>
+                        <pre class="code-block"><code>{
   "name": "Sajal Halder",
   "role": "Software Engineer",
   "experience": "3+ years",
@@ -65,173 +85,138 @@
   "education": "B.Tech Computer Science Engineering",
   "university": "Lovely Professional University",
   "philosophy": "Detail-oriented engineer passionate about writing clean code and driving continuous improvement."
-}
-                        </pre>
-                    </div>                    <div class="stats-container">
-                        <div class="stat-item">
-                            <div class="stat-number" data-target="1000000000">0</div>
+}</code></pre>
+                    </div>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-value" data-target="1000000000">0</div>
                             <div class="stat-label">Daily API Transactions</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number" data-target="28">0</div>
-                            <div class="stat-label">% Latency Reduction</div>
+                        <div class="stat-card">
+                            <div class="stat-value" data-target="28" data-suffix="%">0</div>
+                            <div class="stat-label">Latency Reduction</div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number" data-target="95">0</div>
-                            <div class="stat-label">% Test Coverage</div>
-                        </div>
-                    </div>
-                </div>
-            </div>        </section>
-
-        <section id="skills" class="section">
-            <div class="container">
-                <h2 class="section-title">
-                    <span class="comment"># Technical Skills</span>
-                </h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>Programming Languages</h3>
-                        <div class="skill-list">
-                            <div class="skill-item">
-                                <span class="skill-name">Java</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Kotlin</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">SQL</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h3>Databases</h3>
-                        <div class="skill-list">
-                            <div class="skill-item">
-                                <span class="skill-name">MySQL</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">PostgreSQL</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Redis</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Apache Cassandra</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h3>Frameworks & Tools</h3>
-                        <div class="skill-list">
-                            <div class="skill-item">
-                                <span class="skill-name">Spring Boot</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Microservices</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">JPA/Hibernate</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">JUnit 5</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Kafka</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Gradle</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h3>DevOps & Monitoring</h3>
-                        <div class="skill-list">
-                            <div class="skill-item">
-                                <span class="skill-name">Docker</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Kubernetes</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Jenkins</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">SonarQube</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Prometheus</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Grafana</span>
-                            </div>
+                        <div class="stat-card">
+                            <div class="stat-value" data-target="95" data-suffix="%">0</div>
+                            <div class="stat-label">Test Coverage</div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="hash"></span> Technical Skills
+                </h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3 class="category-title">Programming Languages</h3>
+                        <div class="skill-tags">
+                            <div class="skill-tag">Java</div>
+                            <div class="skill-tag">Kotlin</div>
+                            <div class="skill-tag">SQL</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3 class="category-title">Databases</h3>
+                        <div class="skill-tags">
+                            <div class="skill-tag">MySQL</div>
+                            <div class="skill-tag">PostgreSQL</div>
+                            <div class="skill-tag">Redis</div>
+                            <div class="skill-tag">Apache Cassandra</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3 class="category-title">Frameworks & Tools</h3>
+                        <div class="skill-tags">
+                            <div class="skill-tag">Spring Boot</div>
+                            <div class="skill-tag">Microservices</div>
+                            <div class="skill-tag">JPA/Hibernate</div>
+                            <div class="skill-tag">JUnit 5</div>
+                            <div class="skill-tag">Kafka</div>
+                            <div class="skill-tag">Gradle</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3 class="category-title">DevOps & Monitoring</h3>
+                        <div class="skill-tags">
+                            <div class="skill-tag">Docker</div>
+                            <div class="skill-tag">Kubernetes</div>
+                            <div class="skill-tag">Jenkins</div>
+                            <div class="skill-tag">SonarQube</div>
+                            <div class="skill-tag">Prometheus</div>
+                            <div class="skill-tag">Grafana</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
         <section id="experience" class="section">
             <div class="container">
                 <h2 class="section-title">
-                    <span class="comment"># Professional Experience</span>
+                    <span class="hash"></span> Professional Experience
                 </h2>
-                <div class="experience-timeline">
-                    <div class="experience-item">
-                        <div class="experience-header">
-                            <div class="experience-company">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-company">
                                 <h3>Bangladesh Japan Information Technology Ltd.(BJIT)</h3>
-                                <div class="experience-role">Software Engineer</div>
+                                <div class="timeline-role">Software Engineer</div>
                             </div>
-                            <div class="experience-period">
-                                <span class="period-badge">03/2023 – present</span>
-                                <div class="location">Dhaka, Bangladesh</div>
+                            <div class="timeline-period">
+                                <div class="timeline-date">03/2023 – Present</div>
+                                <div class="timeline-location">Dhaka, Bangladesh</div>
                             </div>
                         </div>
-                        <div class="experience-achievements">
-                            <div class="achievement-item">
+                        <div class="timeline-body">
+                            <div class="achievement">
                                 <span class="achievement-icon">⚡</span>
                                 <span>Developed microservices for Rakuten handling over 1 billion daily API transactions</span>
                             </div>
-                            <div class="achievement-item">
+                            <div class="achievement">
                                 <span class="achievement-icon">🚀</span>
                                 <span>Cut service latency by 28% using Java Virtual Threads for reactive backend optimization</span>
                             </div>
-                            <div class="achievement-item">
+                            <div class="achievement">
                                 <span class="achievement-icon">🔧</span>
                                 <span>Boosted CI pipeline reliability by 35% through improved testing strategies</span>
                             </div>
-                            <div class="achievement-item">
+                            <div class="achievement">
                                 <span class="achievement-icon">📚</span>
                                 <span>Created detailed API documentation, reducing onboarding time by 40%</span>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="experience-item">
-                        <div class="experience-header">
-                            <div class="experience-company">
+
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="timeline-company">
                                 <h3>Piyas International Ltd.</h3>
-                                <div class="experience-role">Software Engineer</div>
+                                <div class="timeline-role">Software Engineer</div>
                             </div>
-                            <div class="experience-period">
-                                <span class="period-badge">04/2022 – 02/2023</span>
-                                <div class="location">Jashore, Bangladesh</div>
+                            <div class="timeline-period">
+                                <div class="timeline-date">04/2022 – 02/2023</div>
+                                <div class="timeline-location">Jashore, Bangladesh</div>
                             </div>
                         </div>
-                        <div class="experience-achievements">
-                            <div class="achievement-item">
+                        <div class="timeline-body">
+                            <div class="achievement">
                                 <span class="achievement-icon">🏗️</span>
                                 <span>Built ERP system supporting 150+ active users with inventory and CRM modules</span>
                             </div>
-                            <div class="achievement-item">
+                            <div class="achievement">
                                 <span class="achievement-icon">⏱️</span>
                                 <span>Improved report generation speed by 90%, reducing execution time to under 1 minute</span>
                             </div>
-                            <div class="achievement-item">
+                            <div class="achievement">
                                 <span class="achievement-icon">🔐</span>
                                 <span>Designed secure APIs with RBAC and transaction-safe database interactions</span>
                             </div>
@@ -241,11 +226,13 @@
             </div>
         </section>
 
+        <!-- Projects Section -->
         <section id="projects" class="section">
             <div class="container">
                 <h2 class="section-title">
-                    <span class="comment"># Featured Projects</span>
-                </h2>                <div class="projects-grid">
+                    <span class="hash"></span> Featured Projects
+                </h2>
+                <div class="projects-grid">
                     <div class="project-card">
                         <div class="project-header">
                             <h3>Rakuten BFF</h3>
@@ -257,7 +244,7 @@
                         <p class="project-description">
                             Backend for Rakuten supporting high-volume sessions. Delivered concurrent APIs managing 50K+ active sessions with near-zero latency.
                         </p>
-                        <div class="tech-stack">
+                        <div class="project-tech">
                             <span class="tech-tag">Java</span>
                             <span class="tech-tag">Spring Boot</span>
                             <span class="tech-tag">Reactive Spring</span>
@@ -266,7 +253,7 @@
                         <div class="project-links">
                             <a href="#" class="project-link">
                                 <span>view details</span>
-                                <span class="arrow">→</span>
+                                <span class="link-arrow">→</span>
                             </a>
                         </div>
                     </div>
@@ -282,7 +269,7 @@
                         <p class="project-description">
                             Enhanced user search experience by aggregating responses from 5+ upstream services using Facade Design Pattern.
                         </p>
-                        <div class="tech-stack">
+                        <div class="project-tech">
                             <span class="tech-tag">Java</span>
                             <span class="tech-tag">Spring Boot</span>
                             <span class="tech-tag">Microservices</span>
@@ -291,7 +278,7 @@
                         <div class="project-links">
                             <a href="#" class="project-link">
                                 <span>view architecture</span>
-                                <span class="arrow">→</span>
+                                <span class="link-arrow">→</span>
                             </a>
                         </div>
                     </div>
@@ -307,7 +294,7 @@
                         <p class="project-description">
                             Built comprehensive ERP system supporting 150+ users with inventory and CRM modules. Improved report generation by 90%.
                         </p>
-                        <div class="tech-stack">
+                        <div class="project-tech">
                             <span class="tech-tag">Java</span>
                             <span class="tech-tag">Spring Boot</span>
                             <span class="tech-tag">MySQL</span>
@@ -316,108 +303,111 @@
                         <div class="project-links">
                             <a href="#" class="project-link">
                                 <span>case study</span>
-                                <span class="arrow">→</span>
+                                <span class="link-arrow">→</span>
                             </a>
                         </div>
                     </div>
 
                     <div class="project-card">
-    <div class="project-header">
-        <h3>Spring Boot QueryDSL API</h3>
-        <div class="project-status">
-            <span class="status-dot active"></span>
-            <span>Open Source</span>
-        </div>
-    </div>
-    <p class="project-description">
-        Developed a Spring Boot 3.4 REST API with dynamic querying capabilities using QueryDSL. Implemented a product catalog system with filtering, pagination, and sorting.
-    </p>
-    <div class="tech-stack">
-        <span class="tech-tag">Java 21</span>
-        <span class="tech-tag">Spring Boot 3.4</span>
-        <span class="tech-tag">QueryDSL</span>
-        <span class="tech-tag">JPA</span>
-    </div>
-    <div class="project-links">
-        <a href="https://github.com/sajal48/querydsl-with-spring-boot-3.x" class="project-link" target="_blank">
-            <span>github repo</span>
-            <span class="arrow">→</span>
-        </a>
-    </div>
-</div>
+                        <div class="project-header">
+                            <h3>Spring Boot QueryDSL API</h3>
+                            <div class="project-status">
+                                <span class="status-dot active"></span>
+                                <span>Open Source</span>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Developed a Spring Boot 3.4 REST API with dynamic querying capabilities using QueryDSL. Implemented a product catalog system with filtering, pagination, and sorting.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Java 21</span>
+                            <span class="tech-tag">Spring Boot 3.4</span>
+                            <span class="tech-tag">QueryDSL</span>
+                            <span class="tech-tag">JPA</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/sajal48/querydsl-with-spring-boot-3.x" class="project-link" target="_blank">
+                                <span>github repo</span>
+                                <span class="link-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
 
                     <div class="project-card">
-    <div class="project-header">
-        <h3>URL Shortener Microservice</h3>
-        <div class="project-status">
-            <span class="status-dot active"></span>
-            <span>Open Source</span>
-        </div>
-    </div>
-    <p class="project-description">
-        Built a URL shortening service using microservices architecture. Features Docker containerization for easy deployment and scalability.
-    </p>
-    <div class="tech-stack">
-        <span class="tech-tag">Java</span>
-        <span class="tech-tag">Microservices</span>
-        <span class="tech-tag">Docker</span>
-        <span class="tech-tag">Spring Boot</span>
-    </div>
-    <div class="project-links">
-        <a href="https://github.com/sajal48/UrlShortner" class="project-link" target="_blank">
-            <span>github repo</span>
-            <span class="arrow">→</span>
-        </a>
-    </div>
-</div>
+                        <div class="project-header">
+                            <h3>URL Shortener Microservice</h3>
+                            <div class="project-status">
+                                <span class="status-dot active"></span>
+                                <span>Open Source</span>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Built a URL shortening service using microservices architecture. Features Docker containerization for easy deployment and scalability.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Microservices</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Spring Boot</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/sajal48/UrlShortner" class="project-link" target="_blank">
+                                <span>github repo</span>
+                                <span class="link-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>        </section>
+            </div>
+        </section>
 
+        <!-- Contact Section -->
         <section id="contact" class="section">
             <div class="container">
                 <h2 class="section-title">
-                    <span class="comment"># Get In Touch</span>
-                </h2>                <div class="contact-content">
+                    <span class="hash"></span> Get In Touch
+                </h2>
+                <div class="contact-grid">
                     <div class="contact-info">
                         <p>Let's build something amazing together. I'm always open to discussing new opportunities and interesting backend engineering projects.</p>
-                        <div class="contact-methods">
-                            <a href="mailto:newtonh48@gmail.com" class="contact-method">
-                                <span class="method-icon">@</span>
-                                <span>newtonh48@gmail.com</span>
+                        <div class="contact-links">
+                            <a href="mailto:newtonh48@gmail.com" class="contact-link">
+                                <span class="link-icon">@</span>
+                                <span class="link-text">newtonh48@gmail.com</span>
                             </a>
-                            <a href="https://github.com/sajal48" class="contact-method">
-                                <span class="method-icon">&lt;/&gt;</span>
-                                <span>github.com/sajal48</span>
+                            <a href="https://github.com/sajal48" class="contact-link" target="_blank">
+                                <span class="link-icon">&lt;/&gt;</span>
+                                <span class="link-text">github.com/sajal48</span>
                             </a>
-                            <a href="https://linkedin.com/in/sajal-halder48" class="contact-method">
-                                <span class="method-icon">in</span>
-                                <span>linkedin.com/in/sajal-halder48</span>
+                            <a href="https://linkedin.com/in/sajal-halder48" class="contact-link" target="_blank">
+                                <span class="link-icon">in</span>
+                                <span class="link-text">linkedin.com/in/sajal-halder48</span>
                             </a>
                         </div>
                     </div>
-                    <div class="terminal-contact">
-                        <div class="terminal-header">
-                            <div class="terminal-controls">
-                                <span class="control close"></span>
-                                <span class="control minimize"></span>
-                                <span class="control maximize"></span>
+                    <div class="contact-terminal">
+                        <div class="terminal mini-terminal">
+                            <div class="terminal-header">
+                                <div class="terminal-buttons">
+                                    <span class="terminal-button close"></span>
+                                    <span class="terminal-button minimize"></span>
+                                    <span class="terminal-button maximize"></span>
+                                </div>
+                                <div class="terminal-title">contact.sh</div>
                             </div>
-                            <div class="terminal-title">contact.sh</div>
-                        </div>
-                        <div class="terminal-body">
-                            <div class="terminal-line">
-                                <span class="prompt">$</span>
-                                <span class="command">./send_message.sh</span>
-                            </div>
-                            <div class="terminal-line">
-                                <span class="output">Message sent successfully!</span>
-                            </div>
-                            <div class="terminal-line">
-                                <span class="output">Response time: &lt; 24h</span>
-                            </div>
-                            <div class="terminal-line">
-                                <span class="prompt">$</span>
-                                <span class="cursor">|</span>
+                            <div class="terminal-body">
+                                <div class="terminal-line">
+                                    <span class="prompt">$</span> <span class="command">./send_message.sh</span>
+                                </div>
+                                <div class="terminal-line">
+                                    <span class="output">Message sent successfully!</span>
+                                </div>
+                                <div class="terminal-line">
+                                    <span class="output">Response time: &lt; 24h</span>
+                                </div>
+                                <div class="terminal-line">
+                                    <span class="prompt">$</span> <span class="cursor"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -426,7 +416,8 @@
         </section>
     </main>
 
-    <footer class="footer">        <div class="container">
+    <footer class="footer">
+        <div class="container">
             <div class="footer-content">
                 <p>&copy; 2025 Sajal Halder. Built with ❤️ and lots of ☕</p>
                 <div class="footer-links">
@@ -436,8 +427,6 @@
                 </div>
             </div>
         </div>
-    </footer>
-
-    <script src="script.js"></script>
+    </footer>    <script src="script.js"></script>
 </body>
 </html>

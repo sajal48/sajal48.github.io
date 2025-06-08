@@ -1,299 +1,361 @@
-// Typing animation for hero section with output responses
-class TypeWriter {
-    constructor(element, commands, outputElement, wait = 3000) {
-        this.element = element;
-        this.commands = commands;
+// Terminal Noir theme - Main JavaScript for Sajal Halder's portfolio
+// Interactive terminal and animation effects
+
+// Terminal Typewriter Effect with Command Output
+class TerminalTypewriter {
+    constructor(promptElement, outputElement) {
+        this.promptElement = promptElement;
         this.outputElement = outputElement;
-        this.wait = parseInt(wait, 10);
-        this.commandIndex = 0;
-        this.txt = '';
+        this.commands = [
+            {
+                command: 'whoami',
+                output: `<div class="output-line">Sajal Halder</div>
+                        <div class="output-line">Software Engineer @ BJIT</div>
+                        <div class="output-line">Backend Developer specializing in Java & Microservices</div>`
+            },
+            {
+                command: 'cat skills.md',
+                output: `<div class="output-line">## Programming Languages</div>
+                        <div class="output-line">- Java, Kotlin</div>
+                        <div class="output-line">- SQL</div>
+                        <div class="output-line">## Frameworks & Technologies</div>
+                        <div class="output-line">- Spring Boot, Microservices</div>
+                        <div class="output-line">- JPA/Hibernate, QueryDSL</div>
+                        <div class="output-line">- Docker, Kubernetes</div>`
+            },
+            {
+                command: 'ls -la projects/',
+                output: `<div class="output-line">total 5</div>
+                        <div class="output-line">drwxr-xr-x  rakuten-bff/</div>
+                        <div class="output-line">drwxr-xr-x  rakuten-gateway/</div>
+                        <div class="output-line">drwxr-xr-x  erp-system/</div>
+                        <div class="output-line">drwxr-xr-x  querydsl-api/</div>
+                        <div class="output-line">drwxr-xr-x  url-shortener/</div>`
+            },
+            {
+                command: 'git log --oneline',
+                output: `<div class="output-line">e7d9f2c Optimized service latency by 28%</div>
+                        <div class="output-line">a4b8c3d Improved CI pipeline reliability</div>
+                        <div class="output-line">f5c1e7b Built ERP system for 150+ users</div>
+                        <div class="output-line">b3d8a1c Handled 1B+ daily API transactions</div>`
+            },
+            {
+                command: 'docker ps',
+                output: `<div class="output-line">CONTAINER ID   IMAGE              STATUS</div>
+                        <div class="output-line">a89f3cde21     spring-boot-app     Up 3 days</div>
+                        <div class="output-line">b45e1cfa38     postgres:14         Up 3 days</div>
+                        <div class="output-line">c12d7e93ab     redis:alpine        Up 3 days</div>`
+            },
+        ];
+        this.currentCommand = 0;
+        this.currentText = '';
         this.isDeleting = false;
-        this.showingOutput = false;
+        this.isWaitingAfterType = false;
+        this.typingSpeed = 70;
+        this.deletingSpeed = 30;
+        this.pauseAfterType = 2000;
+        this.pauseAfterDelete = 500;
+        
+        // Start the animation
         this.type();
     }
-
+    
     type() {
-        const current = this.commandIndex % this.commands.length;
-        const command = this.commands[current].command;
-        const output = this.commands[current].output;
+        // Get current command data
+        const command = this.commands[this.currentCommand].command;
+        const output = this.commands[this.currentCommand].output;
         
-        // If we're showing output, handle that differently
-        if (this.showingOutput) {
-            // Display output for some time, then start deleting the command
-            setTimeout(() => {
-                this.showingOutput = false;
-                this.isDeleting = true;
-                this.type();
-            }, this.wait);
-            return;
-        }
-
-        if (this.isDeleting) {
-            this.txt = command.substring(0, this.txt.length - 1);
-        } else {
-            this.txt = command.substring(0, this.txt.length + 1);
-        }
-
-        this.element.innerHTML = this.txt;
-
-        let typeSpeed = 100;
-
-        if (this.isDeleting) {
-            typeSpeed /= 2;
-        }
-
-        // When finished typing the command
-        if (!this.isDeleting && this.txt === command) {
-            // Show the related output
+        // Set typing speed
+        let typeSpeed = this.typingSpeed;
+        
+        // If waiting after typing a complete command
+        if (this.isWaitingAfterType) {
+            this.isWaitingAfterType = false;
+            this.isDeleting = true;
+            typeSpeed = this.pauseAfterType;
+                  // Show command output
             this.outputElement.innerHTML = output;
-            this.showingOutput = true;
-            return this.type(); // Continue the flow but in output mode
+            this.outputElement.style.display = 'block';
+            // Make output visible with animation
+            setTimeout(() => {
+                this.outputElement.style.opacity = '1';
+            }, 100);
         } 
-        // When finished deleting the command
-        else if (this.isDeleting && this.txt === '') {
-            this.isDeleting = false;
-            this.commandIndex++;
-            typeSpeed = 500;
+        // If deleting
+        else if (this.isDeleting) {
+            if (this.currentText.length > 0) {
+                // Remove one character
+                this.currentText = command.substring(0, this.currentText.length - 1);
+                typeSpeed = this.deletingSpeed;
+            } else {
+                // Finished deleting
+                this.isDeleting = false;
+                this.currentCommand = (this.currentCommand + 1) % this.commands.length;
+                typeSpeed = this.pauseAfterDelete;
+                  // Clear output
+                this.outputElement.style.opacity = '0';
+                setTimeout(() => {
+                    this.outputElement.style.display = 'none';
+                }, 300);
+            }
+        } 
+        // If typing
+        else {
+            // Add one character
+            this.currentText = command.substring(0, this.currentText.length + 1);
             
-            // Clear the output
-            this.outputElement.innerHTML = '';
+            // If finished typing complete command
+            if (this.currentText === command) {
+                this.isWaitingAfterType = true;
+            }
         }
-
+        
+        // Update text in prompt
+        this.promptElement.innerHTML = this.currentText;
+        
+        // Call this function again after typeSpeed
         setTimeout(() => this.type(), typeSpeed);
     }
 }
 
-// Initialize typing animation with commands and outputs
-document.addEventListener('DOMContentLoaded', function() {
-    const typedTextElement = document.querySelector('.typed-text');
-    const outputElement = document.querySelector('.terminal-output');
+// Intersection Observer for animation on scroll
+function setupIntersectionObserver() {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
     
-    // Commands and their corresponding outputs
-    const commandsWithOutputs = [
-        {
-            command: 'whoami',
-            output: `<div class="output-line">Sajal Halder</div>
-                    <div class="output-line">Software Engineer @ BJIT</div>
-                    <div class="output-line">Backend Developer</div>`
-        },
-        {
-            command: 'cat skills.txt',
-            output: `<div class="output-line">• Java, Kotlin, Spring Boot</div>
-                    <div class="output-line">• Microservices Architecture</div>
-                    <div class="output-line">• PostgreSQL, Redis, Cassandra</div>
-                    <div class="output-line">• Docker, Kubernetes, CI/CD</div>`
-        },
-        {
-            command: 'ls projects/',
-            output: `<div class="output-line">rakuten-bff/</div>
-                    <div class="output-line">rakuten-gateway/</div>
-                    <div class="output-line">erp-system/</div>
-                    <div class="output-line">querydsl-api/</div>
-                    <div class="output-line">url-shortener/</div>`
-        },
-        {
-            command: 'git log --oneline',
-            output: `<div class="output-line">e7d9f2c Optimized service latency by 28%</div>
-                    <div class="output-line">a4b8c3d Improved CI pipeline reliability</div>
-                    <div class="output-line">f5c1e7b Built ERP system for 150+ users</div>
-                    <div class="output-line">b3d8a1c Handled 1B+ daily API transactions</div>`
-        },
-        {
-            command: 'docker ps',
-            output: `<div class="output-line">CONTAINER ID   IMAGE              STATUS</div>
-                    <div class="output-line">a89f3cde21     spring-boot-app     Up 3 days</div>
-                    <div class="output-line">b45e1cfa38     postgres:14         Up 3 days</div>
-                    <div class="output-line">c12d7e93ab     redis:alpine        Up 3 days</div>`
-        },
-        {
-            command: 'kubectl get pods',
-            output: `<div class="output-line">NAME                           READY   STATUS</div>
-                    <div class="output-line">api-gateway-694d87b989-zsd45    1/1     Running</div>
-                    <div class="output-line">auth-service-5bc7cbd5d6-x2wvp   1/1     Running</div>
-                    <div class="output-line">user-service-84b87c6d55-lp24f   1/1     Running</div>`
-        }
-    ];
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                
+                // Handle counters
+                if (entry.target.classList.contains('stat-value')) {
+                    animateCounter(entry.target);
+                }
+                
+                // Handle skill tags
+                if (entry.target.classList.contains('skill-category')) {
+                    const skillTags = entry.target.querySelectorAll('.skill-tag');
+                    skillTags.forEach((tag, index) => {
+                        setTimeout(() => {
+                            tag.style.opacity = '1';
+                            tag.style.transform = 'translateY(0)';
+                        }, 100 * index);
+                    });
+                }
+                
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+      // Observe elements
+    document.querySelectorAll('.section-title, .about-code, .skill-category, .timeline-item, .project-card, .contact-link').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        observer.observe(el);
+    });
     
-    if (typedTextElement && outputElement) {
-        new TypeWriter(typedTextElement, commandsWithOutputs, outputElement, 2000);
-    }
-});
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+    // Observe stat cards separately to ensure counter animation works
+    document.querySelectorAll('.stat-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        observer.observe(el);
     });
-});
-
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-// Modify the observer to handle the new skills design
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('animate');
-            
-            // Animate stats counters
-            if (entry.target.classList.contains('stat-number')) {
-                animateCounter(entry.target);
-            }
-            
-            // Animate skill items within skill categories
-            if (entry.target.classList.contains('skill-category')) {
-                const skillItems = entry.target.querySelectorAll('.skill-item');
-                skillItems.forEach((item, index) => {
-                    item.style.opacity = '0';
-                    item.style.transform = 'translateY(20px)';
-                    
-                    setTimeout(() => {
-                        item.style.transition = 'all 0.4s ease';
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateY(0)';
-                    }, index * 100);
-                });
-            }
-        }
+    
+    // Observe stat values directly
+    document.querySelectorAll('.stat-value').forEach(el => {
+        observer.observe(el);
     });
-}, observerOptions);
-
-// Observe elements for animation
-document.querySelectorAll('.stat-number, .skill-category, .project-card').forEach(el => {
-    observer.observe(el);
-});
+}
 
 // Counter animation
 function animateCounter(element) {
     const target = parseInt(element.getAttribute('data-target'));
-    const increment = target / 100;
+    const duration = 2000; // ms
+    const steps = 60;
+    const stepTime = duration / steps;
     let current = 0;
+    const increment = target / steps;
+    const suffix = element.getAttribute('data-suffix') || '';
+    
+    // Start animation immediately with first value
+    if (target >= 1000000000) {
+        element.textContent = '0.1B' + suffix;
+    } else {
+        element.textContent = '1' + suffix;
+    }
     
     const timer = setInterval(() => {
         current += increment;
+        
         if (current >= target) {
-            current = target;
             clearInterval(timer);
+            current = target;
         }
         
+        // Format numbers based on size
         if (target >= 1000000000) {
-            element.textContent = (current / 1000000000).toFixed(1) + 'B';
+            element.textContent = (current / 1000000000).toFixed(1) + 'B' + suffix;
         } else if (target >= 1000000) {
-            element.textContent = (current / 1000000).toFixed(1) + 'M';
+            element.textContent = (current / 1000000).toFixed(1) + 'M' + suffix;
         } else if (target >= 1000) {
-            element.textContent = (current / 1000).toFixed(0) + 'K';
-        } else if (target === 99.9) {
-            element.textContent = current.toFixed(1);
+            element.textContent = Math.round(current / 1000) + 'K' + suffix;
         } else {
-            element.textContent = Math.floor(current);
+            element.textContent = Math.round(current) + suffix;
         }
-    }, 20);
+    }, stepTime);
 }
 
-// Parallax effect for grain overlay
-let ticking = false;
-
-function updateGrain() {
-    const scrolled = window.pageYOffset;
-    const rate = scrolled * -0.5;
-    const grain = document.querySelector('.grain-overlay');
+// Initialize on DOM loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize terminal
+    const commandElement = document.querySelector('.command-input');
+    const outputElement = document.querySelector('.terminal-output');
     
-    if (grain) {
-        grain.style.transform = `translateY(${rate}px)`;
+    if (commandElement && outputElement) {
+        new TerminalTypewriter(commandElement, outputElement);
     }
-    ticking = false;
-}
-
-function requestTick() {
-    if (!ticking) {
-        requestAnimationFrame(updateGrain);
-        ticking = true;
+    
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
     }
-}
-
-window.addEventListener('scroll', requestTick);
-
-// Add active class to navigation links
-window.addEventListener('scroll', () => {
-    let current = '';
-    const sections = document.querySelectorAll('section[id]');
     
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (pageYOffset >= sectionTop - 200) {
-            current = section.getAttribute('id');
-        }
-    });
+    // Setup scroll animations
+    setupIntersectionObserver();
     
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
-        }
-    });
-});
-
-// Project card hover effects
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-8px) rotateX(5deg)';
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                // Update active link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Scroll to target
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     });
     
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) rotateX(0)';
+    // Handle scrolling to update active nav link
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('.section');
+        let currentSection = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.offsetHeight;
+            
+            if (window.pageYOffset >= sectionTop && 
+                window.pageYOffset < sectionTop + sectionHeight) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
+            }
+        });
     });
-});
-
-// Terminal cursor blink control
-setInterval(() => {
-    const cursors = document.querySelectorAll('.cursor');
-    cursors.forEach(cursor => {
-        cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+    
+    // Project card hover effects
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) translateZ(0)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) translateZ(0)';
+        });
     });
-}, 500);
-
-// Add some easter eggs
-const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-let konamiIndex = 0;
-
-document.addEventListener('keydown', (e) => {
-    if (e.keyCode === konamiCode[konamiIndex]) {
-        konamiIndex++;
-        if (konamiIndex === konamiCode.length) {
-            // Easter egg activated
-            document.body.style.filter = 'hue-rotate(180deg)';
-            setTimeout(() => {
-                document.body.style.filter = 'none';
-            }, 3000);
+      // Copy code functionality
+    const codeBlock = document.querySelector('.code-block');
+    const copyButton = document.querySelector('.code-action.copy');
+    
+    if (codeBlock && copyButton) {
+        copyButton.addEventListener('click', () => {
+            const codeText = codeBlock.textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                copyButton.classList.add('copied');
+                
+                // Show tooltip or indication that code was copied
+                copyButton.setAttribute('title', 'Copied!');
+                
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    copyButton.classList.remove('copied');
+                    copyButton.setAttribute('title', 'Copy code');
+                }, 2000);
+            });
+        });
+    }
+    
+    // Easter egg - Konami code
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
+                        'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 
+                        'b', 'a'];
+    let konamiIndex = 0;
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === konamiCode[konamiIndex]) {
+            konamiIndex++;
+            
+            if (konamiIndex === konamiCode.length) {
+                // Easter egg activated!
+                document.body.classList.add('matrix-mode');
+                
+                setTimeout(() => {
+                    document.body.classList.remove('matrix-mode');
+                }, 5000);
+                
+                konamiIndex = 0;
+            }
+        } else {
             konamiIndex = 0;
         }
-    } else {
-        konamiIndex = 0;
-    }
-});
-
-// Console message for curious developers
-console.log(`
-╭─────────────────────────────────────╮
-│  Welcome, fellow developer! 👨‍💻      │
-│                                     │
-│  Thanks for checking out the code.  │
-│  This portfolio was built with:     │
-│  • Vanilla JavaScript              │
-│  • CSS Grid & Flexbox              │
-│  • Intersection Observer API       │
-│  • CSS Custom Properties           │
-│                                     │
-│  Want to connect? Let's chat!       │
-╰─────────────────────────────────────╯
+    });
+    
+    // Console message for curious developers
+    console.log(`
+╔════════════════════════════════════════╗
+║  Welcome to the Terminal Noir theme!   ║
+║  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━    ║
+║                                        ║
+║  Sajal Halder's Backend Portfolio      ║
+║  Built with vanilla JS, CSS and HTML   ║
+║                                        ║
+║  Want to connect?                      ║
+║  → github.com/sajal48                  ║
+║  → linkedin.com/in/sajal-halder48      ║
+║                                        ║
+╚════════════════════════════════════════╝
 `);
+});
