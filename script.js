@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Console message for curious developers
     console.log(`
 ╔════════════════════════════════════════╗
-║  Welcome to the Terminal Noir theme!   ║
+║  Welcome !                             ║
 ║  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━    ║
 ║                                        ║
 ║  Sajal Halder's Backend Portfolio      ║
