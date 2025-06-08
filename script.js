@@ -245,6 +245,49 @@ function addScreenEffects() {
     randomFlicker();
 }
 
+// Theme Toggle Functionality
+function setupThemeToggle() {
+    const themeToggle = document.getElementById('theme-switch');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Check for saved theme preference or use the system preference
+    const currentTheme = localStorage.getItem('theme') || 
+                         (prefersDarkScheme.matches ? 'dark' : 'light');
+    
+    // Set initial theme
+    if (currentTheme === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+        themeToggle.checked = true;
+    } else {
+        document.body.removeAttribute('data-theme');
+        themeToggle.checked = false;
+    }
+    
+    // Handle theme switch
+    themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+            document.body.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+    
+    // Listen for system theme changes
+    prefersDarkScheme.addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            if (e.matches) {
+                document.body.removeAttribute('data-theme');
+                themeToggle.checked = false;
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeToggle.checked = true;
+            }
+        }
+    });
+}
+
 // Initialize on DOM loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize terminal
@@ -396,4 +439,5 @@ document.addEventListener('DOMContentLoaded', () => {
 `);
     
     addScreenEffects();
+    setupThemeToggle();
 });
