@@ -483,109 +483,124 @@ main {
 
 /* Skills section */
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
     margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
 .skill-category {
     background: var(--bg-secondary);
     border-radius: 8px;
-    padding: 2rem;
+    padding: 1.5rem;
     border: 1px solid var(--border-color);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .skill-category:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px var(--shadow);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
 }
 
 .skill-category h3 {
-    color: var(--accent-orange);
+    color: var(--accent-green);
     margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    border-bottom: 1px solid var(--border-color);
     padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.skill-category h3::before {
+    content: '#';
+    margin-right: 0.5rem;
+    color: var(--accent-purple);
 }
 
 .skill-list {
     display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+    flex-wrap: wrap;
+    gap: 0.8rem;
 }
 
 .skill-item {
-    display: flex;
+    background: var(--bg-tertiary);
+    border-radius: 5px;
+    padding: 0.5rem 0.8rem;
+    display: inline-flex;
     align-items: center;
-    gap: 1rem;
-    padding: 0.8rem;
-    background: var(--bg-primary);
-    border-radius: 6px;
     border: 1px solid var(--border-color);
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    cursor: default;
 }
 
 .skill-item:hover {
-    background: rgba(64, 224, 208, 0.05);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background: var(--bg-primary);
+    border-color: var(--accent-green);
 }
 
 .skill-name {
-    min-width: 120px;
+    font-size: 0.9rem;
     color: var(--text-primary);
-    font-size: 0.95rem;
-    font-weight: 400;
-}
-
-.skill-bar {
-    flex: 1;
-    height: 8px;
-    background: var(--bg-secondary);
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid var(--border-color);
-}
-
-.skill-progress {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
-    border-radius: 4px;
-    width: 0%;
-    transition: width 1.5s ease-in-out;
     position: relative;
 }
 
-.skill-progress::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    animation: skillShimmer 2s infinite;
+/* Different accent colors for different skill types */
+.skill-category:nth-child(1) .skill-item:hover {
+    border-color: var(--accent-green);
 }
 
-@keyframes skillShimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+.skill-category:nth-child(2) .skill-item:hover {
+    border-color: var(--accent-blue);
 }
 
-.skill-level {
-    min-width: 45px;
-    text-align: right;
+.skill-category:nth-child(3) .skill-item:hover {
+    border-color: var(--accent-purple);
+}
+
+.skill-category:nth-child(4) .skill-item:hover {
+    border-color: var(--accent-orange);
+}
+
+/* Monospace effect on hover */
+.skill-item:hover .skill-name {
+    letter-spacing: 1px;
+}
+
+/* Add some decoration with tech symbols */
+.skill-category:nth-child(1) .skill-item::before {
+    content: "{ }";
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    opacity: 0.7;
     color: var(--accent-green);
-    font-size: 0.9rem;
-    font-weight: 500;
 }
 
-.skill-level {
-    color: var(--accent-green);
-    font-size: 0.9rem;
-    font-weight: 500;
+.skill-category:nth-child(2) .skill-item::before {
+    content: "⬢";
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    opacity: 0.7;
+    color: var(--accent-blue);
+}
+
+.skill-category:nth-child(3) .skill-item::before {
+    content: "</>";
+    font-size: 0.7rem;
+    margin-right: 0.5rem;
+    opacity: 0.7;
+    color: var(--accent-purple);
+}
+
+.skill-category:nth-child(4) .skill-item::before {
+    content: "⚙️";
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    opacity: 0.7;
+    color: var(--accent-orange);
 }
 
 /* Contact section */
