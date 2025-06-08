@@ -114,7 +114,9 @@ function animateCounter(element) {
             clearInterval(timer);
         }
         
-        if (target >= 1000000) {
+        if (target >= 1000000000) {
+            element.textContent = (current / 1000000000).toFixed(1) + 'B';
+        } else if (target >= 1000000) {
             element.textContent = (current / 1000000).toFixed(1) + 'M';
         } else if (target >= 1000) {
             element.textContent = (current / 1000).toFixed(0) + 'K';
