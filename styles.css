@@ -2272,4 +2272,133 @@ body[data-theme="light"] .switch:hover .slider {
   outline-offset: 2px;
 }
 
-/* Navigation */
+/* Konami Code Easter Egg - Matrix Mode */
+.matrix-mode {
+  animation: matrix-entrance 0.5s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.matrix-mode::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 255, 65, 0.03) 2px,
+      rgba(0, 255, 65, 0.03) 4px
+    );
+  pointer-events: none;
+  z-index: 9999;
+  animation: matrix-scan 2s linear infinite;
+}
+
+.matrix-mode::after {
+  content: '⚡ SYSTEM ACCESSED ⚡';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: #00ff41;
+  font-family: var(--font-main);
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 20px 40px;
+  border: 2px solid #00ff41;
+  border-radius: 8px;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 65, 0.5),
+    inset 0 0 20px rgba(0, 255, 65, 0.1);
+  text-shadow: 0 0 10px #00ff41;
+  z-index: 10000;
+  animation: matrix-message 5s ease-in-out;
+  pointer-events: none;
+}
+
+.matrix-mode * {
+  text-shadow: 
+    0 0 5px #00ff41,
+    0 0 10px #00ff41,
+    0 0 15px #00ff41;
+  color: #00ff41 !important;
+  transition: all 0.3s ease;
+}
+
+.matrix-mode .terminal {
+  border-color: #00ff41;
+  box-shadow: 
+    0 0 30px rgba(0, 255, 65, 0.3),
+    inset 0 0 30px rgba(0, 255, 65, 0.1);
+}
+
+.matrix-mode .nav-link,
+.matrix-mode .project-title,
+.matrix-mode .section-title {
+  animation: matrix-flicker 1s infinite alternate;
+}
+
+@keyframes matrix-entrance {
+  0% {
+    filter: brightness(1) contrast(1) hue-rotate(0deg);
+  }
+  50% {
+    filter: brightness(1.5) contrast(1.5) hue-rotate(90deg);
+  }
+  100% {
+    filter: brightness(1.2) contrast(1.2) hue-rotate(0deg);
+  }
+}
+
+@keyframes matrix-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes matrix-message {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+@keyframes matrix-flicker {
+  0% {
+    text-shadow: 
+      0 0 5px #00ff41,
+      0 0 10px #00ff41,
+      0 0 15px #00ff41;
+  }
+  100% {
+    text-shadow: 
+      0 0 2px #00ff41,
+      0 0 5px #00ff41,
+      0 0 8px #00ff41,
+      0 0 12px #00ff41,
+      0 0 18px #00ff41;
+  }
+}
+
+/* End Matrix Mode */
