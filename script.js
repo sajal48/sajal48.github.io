@@ -288,6 +288,101 @@ function setupThemeToggle() {
     });
 }
 
+// Matrix Rain Effect for Konami Code
+let matrixCanvas = null;
+let matrixCtx = null;
+let matrixAnimationId = null;
+
+function startMatrixRain() {
+    // Create canvas for matrix effect
+    matrixCanvas = document.createElement('canvas');
+    matrixCanvas.id = 'matrix-canvas';
+    matrixCanvas.style.position = 'fixed';
+    matrixCanvas.style.top = '0';
+    matrixCanvas.style.left = '0';
+    matrixCanvas.style.width = '100%';
+    matrixCanvas.style.height = '100%';
+    matrixCanvas.style.pointerEvents = 'none';
+    matrixCanvas.style.zIndex = '9998';
+    matrixCanvas.style.opacity = '0.8';
+    
+    document.body.appendChild(matrixCanvas);
+    
+    matrixCtx = matrixCanvas.getContext('2d');
+    
+    // Set canvas size
+    matrixCanvas.width = window.innerWidth;
+    matrixCanvas.height = window.innerHeight;
+    
+    // Matrix characters (mix of katakana, numbers, and symbols)
+    const matrixChars = 'アカサタナハマヤラワガザダバパイキシチニヒミリギジヂビピウクスツヌフムユルグズブプエケセテネヘメレゲゼデベペオコソトノホモヨロゴゾドボポヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?';
+    
+    const fontSize = 14;
+    const columns = matrixCanvas.width / fontSize;
+    
+    // Array of drops - one per column
+    const drops = [];
+    
+    // Initialize drops
+    for (let x = 0; x < columns; x++) {
+        drops[x] = Math.random() * matrixCanvas.height / fontSize;
+    }
+    
+    function drawMatrix() {
+        // Black background with slight transparency for trail effect
+        matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+        matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+        
+        matrixCtx.fillStyle = '#00ff41'; // Matrix green
+        matrixCtx.font = fontSize + 'px monospace';
+        
+        // Loop through drops
+        for (let i = 0; i < drops.length; i++) {
+            // Random character
+            const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+            
+            // Draw character
+            matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+            
+            // Move drop down
+            if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+        
+        matrixAnimationId = requestAnimationFrame(drawMatrix);
+    }
+    
+    // Start the animation
+    drawMatrix();
+    
+    // Handle resize
+    const handleResize = () => {
+        if (matrixCanvas) {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+        }
+    };
+    
+    window.addEventListener('resize', handleResize);
+}
+
+function stopMatrixRain() {
+    if (matrixAnimationId) {
+        cancelAnimationFrame(matrixAnimationId);
+        matrixAnimationId = null;
+    }
+    
+    if (matrixCanvas) {
+        document.body.removeChild(matrixCanvas);
+        matrixCanvas = null;
+        matrixCtx = null;
+    }
+    
+    window.removeEventListener('resize', handleResize);
+}
+
 // Initialize on DOM loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize terminal
@@ -431,13 +526,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
         if (e.key === konamiCode[konamiIndex]) {
             konamiIndex++;
-            
-            if (konamiIndex === konamiCode.length) {
+              if (konamiIndex === konamiCode.length) {
                 // Easter egg activated!
                 document.body.classList.add('matrix-mode');
+                startMatrixRain();
                 
                 setTimeout(() => {
                     document.body.classList.remove('matrix-mode');
+                    stopMatrixRain();
                 }, 5000);
                 
                 konamiIndex = 0;
